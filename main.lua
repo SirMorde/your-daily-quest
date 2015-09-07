@@ -2,7 +2,7 @@ require ("AnAL")
 
 function love.load(arg)
   --Import font
-  medium = love.graphics.newImageFont("imagefont.png",
+  medium = love.graphics.newImageFont("images/fonts/imagefont.png",
     " abcdefghijklmnopqrstuvwxyz" ..
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ0" ..
     "123456789.,!?-+/():;%&`'*#=[]\"")
@@ -13,12 +13,12 @@ function love.load(arg)
   player = {}
   player.costume = 1
   
-  local costume1  = love.graphics.newImage("Blue-Ninja-SS.png")
-  local costume2  = love.graphics.newImage("Blue-Speedster-SS.png")
-  local costume3  = love.graphics.newImage("Orange-Ninja-SS.png")
-  local costume4  = love.graphics.newImage("Puck-Guy-SS.png")
-  local costume5  = love.graphics.newImage("Purple-Ninja-SS.png")
-  local costume6  = love.graphics.newImage("Red-Ninja-SS.png")
+  local costume1  = love.graphics.newImage("/images/characters/Blue-Ninja-SS.png")
+  local costume2  = love.graphics.newImage("/images/characters/Blue-Speedster-SS.png")
+  local costume3  = love.graphics.newImage("/images/characters/Orange-Ninja-SS.png")
+  local costume4  = love.graphics.newImage("/images/characters/Puck-Guy-SS.png")
+  local costume5  = love.graphics.newImage("/images/characters/Purple-Ninja-SS.png")
+  local costume6  = love.graphics.newImage("/images/characters/Red-Ninja-SS.png")
   
   costume1:setFilter("nearest", "nearest")
   costume2:setFilter("nearest", "nearest")
