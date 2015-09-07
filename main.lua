@@ -63,7 +63,11 @@ end
 -- For keyboard input
 function love.keyreleased(key)
   if(key == " ") then
+      if(player.costume == 6) then
+      player.costume = 1
+      else
       player.costume = player.costume + 1
+      end
   end
 end
 
@@ -81,7 +85,6 @@ function love.update(dt)
     anim = anim5
   elseif (player.costume == 6) then
     anim = anim6
-    player.costume = 1
   end
   
   -- Updates the animation. (Enables frame changes)
