@@ -1,7 +1,7 @@
-require ("AnAL")
-require ("/hump/camera")
-require ("/hump/gamestate")
-require ("/hump/timer")
+require ("/libraries/AnAL")
+require ("/libraries/hump/camera")
+require ("/libraries/hump/gamestate")
+require ("/libraries/hump/timer")
 
 
 function love.load(arg)
