@@ -1,8 +1,12 @@
 require ("AnAL")
+require ("/hump/camera")
+require ("/hump/gamestate")
+require ("/hump/timer")
+
 
 function love.load(arg)
   --Import font
-  medium = love.graphics.newImageFont("images/fonts/imagefont.png",
+  font1 = love.graphics.newImageFont("images/fonts/imagefont.png",
     " abcdefghijklmnopqrstuvwxyz" ..
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ0" ..
     "123456789.,!?-+/():;%&`'*#=[]\"")
@@ -38,26 +42,6 @@ function love.load(arg)
   remaining_time = 5
   gameover = false
   
-  --[[ Leftover code from shooter game
-  if arg and arg[#arg] == "-debug" then require("mobdebug").start() end
-  hero = {} -- new table for the hero
-  hero.x = 300 -- x,y coordinates of the hero
-  hero.y = 450
-  hero.width = 30
-  hero.height = 15
-  hero.speed = 150
-  hero.shots = {} -- holds our fired shots
-
-  enemies = {}
-  for i=0,7 do
-    local enemy = {}
-    enemy.width = 40
-    enemy.height = 30
-    enemy.x = i * (enemy.width + 60) + 100
-    enemy.y = enemy.height + 100
-    table.insert(enemies, enemy)
-  end
-    ]]
 end
 
 -- For keyboard input
@@ -72,7 +56,7 @@ function love.keyreleased(key)
 end
 
 function love.update(dt)
-  -- Draw the animation at (496, 100).
+  -- Draw the animation of the different costumes.
   if(player.costume == 1) then
     anim = anim1 
   elseif(player.costume == 2) then
@@ -98,11 +82,9 @@ function love.update(dt)
 end
 
 function love.draw()
-  love.graphics.setFont(medium)
+  love.graphics.setFont(font1)
   
-  --remainingtimetrunc = re
-  --if remaining_time%1 == 0 then
-    love.graphics.printf(remaining_time, 200, 300, 125, "center")
+    love.graphics.printf(string.format("%.0f", remaining_time), 200, 300, 125, "center")
     love.graphics.printf("Press space to change costumes", 600, 500, 125, "center")
   --end
   
@@ -111,6 +93,7 @@ function love.draw()
   end
 
   anim:draw(496, 100, 0, 10, 10) 
+  
 end
 
 function shoot()
