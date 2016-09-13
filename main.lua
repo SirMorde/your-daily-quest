@@ -2,7 +2,8 @@ require ("/libraries/AnAL")
 require ("/libraries/hump/camera")
 require ("/libraries/hump/gamestate")
 require ("/libraries/hump/timer")
-
+require ("/libraries/menu")
+Menu = require "/libraries/menu"
 
 function love.load(arg)
   --Import font
@@ -11,8 +12,12 @@ function love.load(arg)
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ0" ..
     "123456789.,!?-+/():;%&`'*#=[]\"")
   
-  love.graphics.setBackgroundColor(255, 255, 255)
+  --love.graphics.setBackgroundColor(255, 255, 255)
   
+  backgroundImage = love.graphics.newImage("/images/background_image.png")
+  
+  music = love.audio.newSource("/music/your_daily_quest_theme.mp3") -- if "static" is omitted, LÖVE will stream the file from disk, good for longer music tracks
+    
   --Main Character
   player = {}
   player.costume = 1
@@ -42,6 +47,25 @@ function love.load(arg)
   remaining_time = 5
   gameover = false
   
+  testmenu = Menu.new()
+   testmenu:addItem{
+      name = 'Start Game',
+      action = function()
+         -- do something
+      end
+   }
+   testmenu:addItem{
+      name = 'Options',
+      action = function()
+         -- do something
+      end
+   }
+   testmenu:addItem{
+      name = 'Quit',
+      action = function()
+         love.event.push('q')
+      end
+   }
 end
 
 -- For keyboard input
@@ -55,7 +79,15 @@ function love.keyreleased(key)
   end
 end
 
+function love.keypressed(key)
+   testmenu:keypressed(key)
+end
+
 function love.update(dt)
+  testmenu:update(dt)
+  
+  music:play()
+  
   -- Draw the animation of the different costumes.
   if(player.costume == 1) then
     anim = anim1 
@@ -82,17 +114,24 @@ function love.update(dt)
 end
 
 function love.draw()
+  
+  local sx = love.graphics.getWidth() / backgroundImage:getWidth()
+  local sy = love.graphics.getHeight() / backgroundImage:getHeight()
+  love.graphics.draw(backgroundImage, 0, 0, 0, sx, sy) -- x: 0, y: 0, rot: 0, scale x and scale y
+  
+  testmenu:draw(10, 10)
+  
   love.graphics.setFont(font1)
   
-    love.graphics.printf(string.format("%.0f", remaining_time), 200, 300, 125, "center")
+    love.graphics.printf(string.format("%.0f", remaining_time), 400, 150, 125, "center")
     love.graphics.printf("Press space to change costumes", 600, 500, 125, "center")
   --end
   
   if gameover == true then
-    love.graphics.printf("GAME OVER M8", 200, 200, 125, "center")
+    love.graphics.printf("GAME OVER M8", 400, 200, 125, "center")
   end
 
-  anim:draw(496, 100, 0, 10, 10) 
+  anim:draw(496, 200, 0, 10, 10) 
   
 end
 
@@ -111,3 +150,6 @@ function CheckCollision(ax1,ay1,aw,ah, bx1,by1,bw,bh)
   local ax2,ay2,bx2,by2 = ax1 + aw, ay1 + ah, bx1 + bw, by1 + bh
   return ax1 < bx2 and ax2 > bx1 and ay1 < by2 and ay2 > by1
 end
+
+
+
